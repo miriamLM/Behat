@@ -8,7 +8,7 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\HttpFoundation\Request;
-use LaSalle\ChupiProject\Controller\api\EndPointColorController;
+use LaSalle\ChupiProject\Controller\api\EndPointRandomColor;
 use LaSalle\ChupiProject\Module\Color\Domain\RandomColorSearcher;
 use LaSalle\ChupiProject\Module\Color\Infrastructure\InMemoryColorRepository;
 use LaSalle\ChupiProject\Module\CoolWord\Domain\RandomCoolWordSearcher;
@@ -36,7 +36,7 @@ function _random_color_except(string $except, callable $randomColorSearcher): st
 
 
 $routes = [
-    'color'   => (new Route('/color',           ['controller' => EndPointColorController::class]))->setMethods([Request::METHOD_GET]),
+    'color'   => (new Route('/color',           ['controller' => EndPointRandomColor::class]))->setMethods([Request::METHOD_GET]),
     'word'  => (new Route('/word', ['controller' => UserController::class]))->setMethods([Request::METHOD_GET])
 ];
 
