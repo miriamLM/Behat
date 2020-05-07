@@ -1,6 +1,7 @@
 <?php require 'vendor/autoload.php';
 
 use Colors\Color;
+use LaSalle\ChupiProject\Controller\api\EndPointRandomCoolWord;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
@@ -37,7 +38,8 @@ function _random_color_except(string $except, callable $randomColorSearcher): st
 
 $routes = [
     'color'   => (new Route('/color',           ['controller' => EndPointRandomColor::class]))->setMethods([Request::METHOD_GET]),
-    'word'  => (new Route('/word', ['controller' => UserController::class]))->setMethods([Request::METHOD_GET])
+    'coolword'  => (new Route('/coolword', ['controller' => EndPointRandomCoolWord::class]))->setMethods([Request::METHOD_GET]),
+    'colorword'  => (new Route('/colorword', ['controller' => EndPointRandomCoolWord::class]))->setMethods([Request::METHOD_GET])
 ];
 
 $rc = new RouteCollection();
