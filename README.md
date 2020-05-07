@@ -15,3 +15,8 @@ Para ejecutar el proyecto sólo hay que hacer: `php chupi.php`, y ya tendrás tu
 ``
 php -S localhost:8000 chupi.php
 ``
+
+## Realizar una solicitud GET
+``
+curl --location --request GET 'http://localhost:8000/colorword'
+``
