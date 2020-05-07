@@ -17,11 +17,11 @@ echo $color($wordSearcher())->bg($bgColor)->$fgColor . PHP_EOL;
 
 function _random_color_except(string $except, callable $randomColorSearcher): string
 {
-    $return = $except;
+    $frontColor = $except;
 
-    while ($except === $return) {
-        $return = $randomColorSearcher();
+    while ($except === $frontColor) {
+        $frontColor = $randomColorSearcher();
     }
 
-    return $return;
+    return $frontColor;
 }
