@@ -18,6 +18,9 @@ final class EndPointRandomCoolWordWithRandomColor
     public function __invoke(Request $request): Response
     {
         $wordSearcher  = new RandomCoolWordSearcher(new InMemoryCoolWordRepository());
+
+        $coolword = $wordSearcher();
+
         $colorSearcher = new RandomColorSearcher(new InMemoryColorRepository());
 
         $bgColor = $colorSearcher();
@@ -26,10 +29,12 @@ final class EndPointRandomCoolWordWithRandomColor
         $fgColor = $differentColorGenerator->random_color_except($bgColor, $colorSearcher);
 
         $color = new Color();
-        $coolwordwithstyle=$color($wordSearcher())->bg($bgColor)->$fgColor . PHP_EOL;
+        $coolwordwithstyle=$color($coolword)->bg($bgColor)->$fgColor . PHP_EOL;
 
+        $myArr = array("background color"=>$bgColor, "font color"=>$fgColor, "cool word"=>$coolword);
+        $myJSON = json_encode($myArr);
 
-        return Response::create($coolwordwithstyle, 200);
+        return Response::create($myJSON, 200);
     }
 
 }
