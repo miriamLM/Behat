@@ -73,9 +73,9 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Given /^I do a "([^"]*)" request to "([^"]*)" in text$/
+     * @Given /^I do a "([^"]*)" request to "([^"]*)" in string$/
      */
-    public function iDoARequestToInText($method, $uri)
+    public function iDoARequestToInString($method, $uri)
     {
         $client = new Client(['base_uri' => 'http://localhost:8000/']);
 
@@ -93,8 +93,24 @@ class FeatureContext implements Context
     /**
      * @Then /^the response color code should be "([^"]*)"$/
      */
-    public function theResponseColorCodeShouldBe($arg1)
+    public function theResponseColorCodeShouldBe($expectedStatusCode)
     {
-        throw new \Behat\Behat\Tester\Exception\PendingException();
+        if ($expectedStatusCode != $this->lastStatusCode) {
+            throw new \Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
+        }
     }
+
+    /**
+     * @Given /^the color response should be:$/
+     */
+    public function theColorResponseShouldBe(PyStringNode $response)
+    {
+        $expectedResponseBody = json_decode($response->getRaw());
+        $lastResponseBody = json_decode($this->lastResponse);
+        if ($expectedResponseBody != $lastResponseBody) {
+            throw new \Exception('Wrong response body');
+        }
+    }
+
+
 }
