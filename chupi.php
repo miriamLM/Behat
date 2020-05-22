@@ -2,6 +2,9 @@
 
 use LaSalle\ChupiProject\Controller\api\EndPointRandomCoolWord;
 use LaSalle\ChupiProject\Controller\api\EndPointRandomCoolWordWithRandomColor;
+use LaSalle\ChupiTest\Infrastructure\Controller\EndPointRandomColorTest;
+use LaSalle\ChupiTest\Infrastructure\Controller\EndPointRandomCoolWordTest;
+use LaSalle\ChupiTest\Infrastructure\Controller\EndPointRandomCoolWordWithRandomColorTest;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
@@ -15,7 +18,10 @@ use LaSalle\ChupiProject\Controller\api\EndPointRandomColor;
 $routes = [
     'color'   => (new Route('/color',           ['controller' => EndPointRandomColor::class]))->setMethods([Request::METHOD_GET]),
     'coolword'  => (new Route('/coolword', ['controller' => EndPointRandomCoolWord::class]))->setMethods([Request::METHOD_GET]),
-    'colorword'  => (new Route('/colorword', ['controller' => EndPointRandomCoolWordWithRandomColor::class]))->setMethods([Request::METHOD_GET])
+    'colorword'  => (new Route('/colorword', ['controller' => EndPointRandomCoolWordWithRandomColor::class]))->setMethods([Request::METHOD_GET]),
+    'colortest'   => (new Route('/colortest',           ['controller' => EndPointRandomColorTest::class]))->setMethods([Request::METHOD_GET]),
+    'coolwordtest'  => (new Route('/coolwordtest', ['controller' => EndPointRandomCoolWordTest::class]))->setMethods([Request::METHOD_GET]),
+    'colorwordtest'  => (new Route('/colorwordtest', ['controller' => EndPointRandomCoolWordWithRandomColorTest::class]))->setMethods([Request::METHOD_GET])
 ];
 
 $rc = new RouteCollection();
