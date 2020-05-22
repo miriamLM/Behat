@@ -19,4 +19,12 @@ class FeatureContext implements Context
     public function __construct()
     {
     }
+
+    /**
+     * @Given /^I do a "([^"]*)" request to "([^"]*)" in json$/
+     */
+    public function iDoARequestToInJson($arg1, $arg2)
+    {
+        throw new \Behat\Behat\Tester\Exception\PendingException();
+    }
 }
