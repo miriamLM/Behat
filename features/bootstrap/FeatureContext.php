@@ -131,12 +131,24 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Then /^the coolword response should be "([^"]*)"$/
+     * @Then /^the status coolword response should be "([^"]*)"$/
      */
-    public function theCoolwordResponseShouldBe($expectedStatusCode)
+    public function theStatusCoolwordResponseShouldBe($expectedStatusCode)
     {
         if ($expectedStatusCode != $this->lastStatusCode) {
             throw new \Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
+        }
+    }
+
+    /**
+     * @Given /^the coolword response should be:$/
+     */
+    public function theCoolwordResponseShouldBe(PyStringNode $response)
+    {
+        $expectedResponseBody = json_decode($response->getRaw());
+        $lastResponseBody = json_decode($this->lastResponse);
+        if ($expectedResponseBody != $lastResponseBody) {
+            throw new \Exception('Wrong response body');
         }
     }
 
