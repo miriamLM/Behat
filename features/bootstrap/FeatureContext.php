@@ -55,9 +55,46 @@ class FeatureContext implements Context
      */
     public function theResponseCodeShouldBe($expectedStatusCode)
     {
-        echo $expectedStatusCode;
         if ($expectedStatusCode != $this->lastStatusCode) {
             throw new \Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
         }
+    }
+
+    /**
+     * @Given /^the response should be:$/
+     */
+    public function theResponseShouldBe(PyStringNode $response)
+    {
+        $expectedResponseBody = json_decode($response->getRaw());
+        $lastResponseBody = json_decode($this->lastResponse);
+        if ($expectedResponseBody != $lastResponseBody) {
+            throw new \Exception('Wrong response body');
+        }
+    }
+
+    /**
+     * @Given /^I do a "([^"]*)" request to "([^"]*)" in text$/
+     */
+    public function iDoARequestToInText($method, $uri)
+    {
+        $client = new Client(['base_uri' => 'http://localhost:8000/']);
+
+        try {
+            $request = $client->request($method, $uri);
+
+            $this->lastResponse   = $request->getBody()->getContents();
+            $this->lastStatusCode = $request->getStatusCode();
+        } catch (ClientException $exception) {
+            $this->lastResponse   = $exception->getResponse()->getBody();
+            $this->lastStatusCode = $exception->getResponse()->getStatusCode();
+        }
+    }
+
+    /**
+     * @Then /^the response color code should be "([^"]*)"$/
+     */
+    public function theResponseColorCodeShouldBe($arg1)
+    {
+        throw new \Behat\Behat\Tester\Exception\PendingException();
     }
 }
