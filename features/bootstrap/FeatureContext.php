@@ -112,5 +112,23 @@ class FeatureContext implements Context
         }
     }
 
+    /**
+     * @Given /^I do a "([^"]*)" request to coolword "([^"]*)" in string$/
+     */
+    public function iDoARequestToCoolwordInString($method, $uri)
+    {
+        $client = new Client(['base_uri' => 'http://localhost:8000/']);
+
+        try {
+            $request = $client->request($method, $uri);
+
+            $this->lastResponse   = $request->getBody()->getContents();
+            $this->lastStatusCode = $request->getStatusCode();
+        } catch (ClientException $exception) {
+            $this->lastResponse   = $exception->getResponse()->getBody();
+            $this->lastStatusCode = $exception->getResponse()->getStatusCode();
+        }
+    }
+
 
 }
