@@ -3,12 +3,23 @@
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext implements Context
 {
+    /**
+     * @var string
+     */
+    private $lastResponse;
+    /**
+     * @var int
+     */
+    private $lastStatusCode;
+
     /**
      * Initializes context.
      *
@@ -23,8 +34,30 @@ class FeatureContext implements Context
     /**
      * @Given /^I do a "([^"]*)" request to "([^"]*)" in json$/
      */
-    public function iDoARequestToInJson($arg1, $arg2)
+    public function iDoARequestToInJson($method, $uri)
     {
-        throw new \Behat\Behat\Tester\Exception\PendingException();
+        $client = new Client(['base_uri' => 'http://localhost:8000/']);
+
+        try {
+            $request = $client->request($method, $uri);
+
+            $this->lastResponse   = $request->getBody()->getContents();
+            $this->lastStatusCode = $request->getStatusCode();
+        } catch (ClientException $exception) {
+            $this->lastResponse   = $exception->getResponse()->getBody();
+            $this->lastStatusCode = $exception->getResponse()->getStatusCode();
+        }
+    }
+
+    /**
+     * @Then /^the response code should be "([^"]*)"$/
+     * @throws Exception
+     */
+    public function theResponseCodeShouldBe($expectedStatusCode)
+    {
+        echo $expectedStatusCode;
+        if ($expectedStatusCode != $this->lastStatusCode) {
+            throw new \Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
+        }
     }
 }
