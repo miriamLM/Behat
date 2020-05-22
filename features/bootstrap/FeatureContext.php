@@ -130,5 +130,15 @@ class FeatureContext implements Context
         }
     }
 
+    /**
+     * @Then /^the coolword response should be "([^"]*)"$/
+     */
+    public function theCoolwordResponseShouldBe($expectedStatusCode)
+    {
+        if ($expectedStatusCode != $this->lastStatusCode) {
+            throw new \Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
+        }
+    }
+
 
 }
