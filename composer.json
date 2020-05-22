@@ -6,7 +6,8 @@
         "kevinlebrun/colors.php": "^1.0",
         "symfony/routing": "^5.0",
         "symfony/http-foundation": "^5.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "~6.0"
     },
     "autoload": {
         "psr-4": {
