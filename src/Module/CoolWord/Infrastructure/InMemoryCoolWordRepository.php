@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaSalle\ChupiProject\Module\CoolWord\Infrastructure;
 
 use LaSalle\ChupiProject\Module\CoolWord\Domain\CoolWordRepository;
