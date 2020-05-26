@@ -23,18 +23,18 @@ final class EndPointRandomCoolWordWithRandomColor
 
         $colorSearcher = new RandomColorSearcher(new InMemoryColorRepository());
 
-        $bgColor = $colorSearcher();
+        $backgroundColor = $colorSearcher();
 
         $differentColorGenerator= new DifferentRandomColorExpectGenerator();
-        $fgColor = $differentColorGenerator->random_color_except($bgColor, $colorSearcher);
+        $fontColor = $differentColorGenerator->random_color_except($backgroundColor, $colorSearcher);
 
         $color = new Color();
-        $coolwordwithstyle=$color($coolword)->bg($bgColor)->$fgColor . PHP_EOL;
+        $coolwordwithstyle=$color($coolword)->bg($backgroundColor)->$fontColor . PHP_EOL;
 
-        $myArr = array("background color"=>$bgColor, "font color"=>$fgColor, "cool word"=>$coolword);
-        $myJSON = json_encode($myArr);
+        $coolwordWithStyleArray = array("background color"=>$backgroundColor, "font color"=>$fontColor, "cool word"=>$coolword);
+        $coolwordWithStyleJSON = json_encode($coolwordWithStyleArray);
 
-        return Response::create($myJSON, 200);
+        return Response::create($coolwordWithStyleJSON, 200);
     }
 
 }
