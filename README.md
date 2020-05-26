@@ -4,13 +4,6 @@
 
 En cada ejecución el programa te devuelve una frase molona!!
 
-
-# Tests
-No hay tests porque el código se lee genial.
-
-# Como usar
-Para ejecutar el proyecto sólo hay que hacer: `php chupi.php`, y ya tendrás tu palabra molona!
-
 ## Para levantar un servidor web
 ``
 php -S localhost:8000 chupi.php
@@ -19,4 +12,45 @@ php -S localhost:8000 chupi.php
 ## Realizar una solicitud GET
 ``
 curl --location --request GET 'http://localhost:8000/colorword'
+``
+
+## Endpoints 
+### Color
+- Devuelve un color random
+``
+http://localhost:8000/color
+``
+### Cool Word
+- Devuelve una palabra molona random
+``
+http://localhost:8000/coolword
+``
+### Cool Word with style
+- Devuelve un json con un color de fondo random, un color de fuente random y una palabra molona también random
+``
+http://localhost:8000/colorword
+``
+
+##Test
+#Unit test
+- Ejecutar unit test en linea de comandos:
+``
+vendor/bin/phpunit
+``
+- Ejecutar unit test en linea de comandos con estilo:
+``
+vendor/bin/phpunit --testdox
+``
+
+#Behat
+- Ejecutar test Behat en linea de comandos:
+``
+vendor/bin/behat
+``
+- Ejecutar test Behat en linea de comandos con estilo:
+``
+vendor/bin/behat --colors
+``
+``
+vendor/bin/behat --format=progress
 ``
