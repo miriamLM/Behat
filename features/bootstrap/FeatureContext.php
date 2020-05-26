@@ -20,7 +20,15 @@ class FeatureContext implements Context
      */
     private $lastStatusCode;
 
+    /**
+     * @var array
+     */
     private array $arrayOfColors;
+
+    /**
+     * @var array
+     */
+    private array $arrayOfCoolWords;
 
     /**
      * Initializes context.
@@ -31,7 +39,15 @@ class FeatureContext implements Context
      */
     public function __construct()
     {
-        $this->arrayOfColors= ['red', 'cyan', 'magenta', 'green', 'black', 'yellow', 'blue', 'light_gray'];
+        $this->arrayOfColors = ['red', 'cyan', 'magenta', 'green', 'black', 'yellow', 'blue', 'light_gray'];
+        $this->arrayOfCoolWords = [
+            'Chachi pistachi!',
+            'Esto mola mogollón, tío!',
+            'Mola mazo!',
+            'Eres mazo guay',
+            'Holiiiiii',
+            'Besiis',
+        ];
     }
 
     /*
@@ -49,10 +65,10 @@ class FeatureContext implements Context
         try {
             $request = $client->request($method, $uri);
 
-            $this->lastResponse   = $request->getBody()->getContents();
+            $this->lastResponse = $request->getBody()->getContents();
             $this->lastStatusCode = $request->getStatusCode();
         } catch (ClientException $exception) {
-            $this->lastResponse   = $exception->getResponse()->getBody();
+            $this->lastResponse = $exception->getResponse()->getBody();
             $this->lastStatusCode = $exception->getResponse()->getStatusCode();
         }
     }
@@ -64,7 +80,7 @@ class FeatureContext implements Context
     public function theResponseCodeShouldBe($expectedStatusCode)
     {
         if ($expectedStatusCode != $this->lastStatusCode) {
-            throw new \Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
+            throw new Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
         }
     }
 
@@ -76,7 +92,7 @@ class FeatureContext implements Context
         $expectedResponseBody = json_decode($response->getRaw());
         $lastResponseBody = json_decode($this->lastResponse);
         if ($expectedResponseBody != $lastResponseBody) {
-            throw new \Exception('Wrong response body');
+            throw new Exception('Wrong response body');
         }
     }
 
@@ -96,10 +112,10 @@ class FeatureContext implements Context
         try {
             $request = $client->request($method, $uri);
 
-            $this->lastResponse   = $request->getBody()->getContents();
+            $this->lastResponse = $request->getBody()->getContents();
             $this->lastStatusCode = $request->getStatusCode();
         } catch (ClientException $exception) {
-            $this->lastResponse   = $exception->getResponse()->getBody();
+            $this->lastResponse = $exception->getResponse()->getBody();
             $this->lastStatusCode = $exception->getResponse()->getStatusCode();
         }
     }
@@ -110,7 +126,7 @@ class FeatureContext implements Context
     public function theResponseColorCodeShouldBe($expectedStatusCode)
     {
         if ($expectedStatusCode != $this->lastStatusCode) {
-            throw new \Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
+            throw new Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
         }
     }
 
@@ -124,9 +140,9 @@ class FeatureContext implements Context
             throw new Exception('String expected');
         }
 
-        $existxInArrayOfColors = in_array ( $this->lastResponse, $this->arrayOfColors ,true );
+        $existsInArrayOfColors = in_array($this->lastResponse, $this->arrayOfColors, true);
 
-        if (false == $existxInArrayOfColors){
+        if (false == $existsInArrayOfColors) {
             throw new Exception('Error value expected');
         }
 
@@ -148,10 +164,10 @@ class FeatureContext implements Context
         try {
             $request = $client->request($method, $uri);
 
-            $this->lastResponse   = $request->getBody()->getContents();
+            $this->lastResponse = $request->getBody()->getContents();
             $this->lastStatusCode = $request->getStatusCode();
         } catch (ClientException $exception) {
-            $this->lastResponse   = $exception->getResponse()->getBody();
+            $this->lastResponse = $exception->getResponse()->getBody();
             $this->lastStatusCode = $exception->getResponse()->getStatusCode();
         }
     }
@@ -162,7 +178,7 @@ class FeatureContext implements Context
     public function theStatusCoolwordResponseShouldBe($expectedStatusCode)
     {
         if ($expectedStatusCode != $this->lastStatusCode) {
-            throw new \Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
+            throw new Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
         }
     }
 
@@ -171,10 +187,14 @@ class FeatureContext implements Context
      */
     public function theCoolwordResponseShouldBe(PyStringNode $response)
     {
-        $expectedResponseBody = json_decode($response->getRaw());
-        $lastResponseBody = json_decode($this->lastResponse);
-        if ($expectedResponseBody != $lastResponseBody) {
-            throw new \Exception('Wrong response body');
+        if ('string' !== gettype($response->getRaw())) {
+            throw new Exception('String expected');
+        }
+
+        $existsInArrayOfCoolWords = in_array($this->lastResponse, $this->arrayOfCoolWords, true);
+
+        if (false == $existsInArrayOfCoolWords) {
+            throw new Exception('Error value expected');
         }
     }
 
