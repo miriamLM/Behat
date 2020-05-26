@@ -21,18 +21,18 @@ $routes = [
     'colorword'  => (new Route('/colorword', ['controller' => EndPointRandomCoolWordWithRandomColor::class]))->setMethods([Request::METHOD_GET])
 ];
 
-$rc = new RouteCollection();
+$routeCollection = new RouteCollection();
 foreach ($routes as $key => $route) {
-    $rc->add($key, $route);
+    $routeCollection->add($key, $route);
 }
-$context = new RequestContext();
-$matcher = new UrlMatcher($rc, $context);
+$requestContext = new RequestContext();
+$matcher = new UrlMatcher($routeCollection, $requestContext);
 $request = Request::createFromGlobals();
-$context->fromRequest($request);
+$requestContext->fromRequest($request);
 
 try {
-    $attributes = $matcher->match($context->getPathInfo());
-    $ctrlName = $matcher->match($context->getPathInfo())['controller'];
+    $attributes = $matcher->match($requestContext->getPathInfo());
+    $ctrlName = $matcher->match($requestContext->getPathInfo())['controller'];
     $ctrl = new $ctrlName();
     $request->attributes->add($attributes);
     $response = $ctrl($request);
