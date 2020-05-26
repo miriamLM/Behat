@@ -20,6 +20,8 @@ class FeatureContext implements Context
      */
     private $lastStatusCode;
 
+    private array $arrayOfColors;
+
     /**
      * Initializes context.
      *
@@ -29,6 +31,7 @@ class FeatureContext implements Context
      */
     public function __construct()
     {
+        $this->arrayOfColors= ['red', 'cyan', 'magenta', 'green', 'black', 'yellow', 'blue', 'light_gray'];
     }
 
     /*
@@ -119,6 +122,12 @@ class FeatureContext implements Context
 
         if ('string' !== gettype($response->getRaw())) {
             throw new Exception('String expected');
+        }
+
+        $existxInArrayOfColors = in_array ( $this->lastResponse, $this->arrayOfColors ,true );
+
+        if (false == $existxInArrayOfColors){
+            throw new Exception('Error value expected');
         }
 
     }
