@@ -2,7 +2,7 @@
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
+use Coduo\PHPMatcher\Factory\SimpleFactory;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
@@ -67,7 +67,9 @@ class FeatureContext implements Context
 
             $this->lastResponse = $request->getBody()->getContents();
             $this->lastStatusCode = $request->getStatusCode();
+
         } catch (ClientException $exception) {
+
             $this->lastResponse = $exception->getResponse()->getBody();
             $this->lastStatusCode = $exception->getResponse()->getStatusCode();
         }
@@ -89,11 +91,22 @@ class FeatureContext implements Context
      */
     public function theResponseShouldBe(PyStringNode $response)
     {
-        $expectedResponseBody = json_decode($response->getRaw());
-        $lastResponseBody = json_decode($this->lastResponse);
-        if ($expectedResponseBody != $lastResponseBody) {
-            throw new Exception('Wrong response body');
+        $expectedJson = $response->getRaw();
+        $responseJson = $this->lastResponse;
+
+        if (null === $expectedJson) {
+            throw new \RuntimeException("Can not convert given JSON string to valid JSON format.");
         }
+
+        $factory = new SimpleFactory();
+
+        $matcher = $factory->createMatcher();
+        $match = $matcher->match($responseJson, $expectedJson);
+
+        if ($match !== true) {
+            throw new \RuntimeException("Expected JSON doesn't match response JSON.");
+        }
+
     }
 
 
@@ -114,7 +127,9 @@ class FeatureContext implements Context
 
             $this->lastResponse = $request->getBody()->getContents();
             $this->lastStatusCode = $request->getStatusCode();
+
         } catch (ClientException $exception) {
+
             $this->lastResponse = $exception->getResponse()->getBody();
             $this->lastStatusCode = $exception->getResponse()->getStatusCode();
         }
@@ -166,7 +181,9 @@ class FeatureContext implements Context
 
             $this->lastResponse = $request->getBody()->getContents();
             $this->lastStatusCode = $request->getStatusCode();
+
         } catch (ClientException $exception) {
+
             $this->lastResponse = $exception->getResponse()->getBody();
             $this->lastStatusCode = $exception->getResponse()->getStatusCode();
         }
