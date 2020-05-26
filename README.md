@@ -4,6 +4,12 @@
 
 En cada ejecución el programa te devuelve una frase molona!!
 
+## Inicio
+- Instalar las dependencias:
+``
+composer install
+``
+
 ## Para levantar un servidor web
 ``
 php -S localhost:8000 chupi.php
