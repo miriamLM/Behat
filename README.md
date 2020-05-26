@@ -31,8 +31,8 @@ http://localhost:8000/coolword
 http://localhost:8000/colorword
 ``
 
-##Test
-#Unit test
+## Test
+# Unit test
 - Ejecutar unit test en linea de comandos:
 ``
 vendor/bin/phpunit
@@ -42,7 +42,7 @@ vendor/bin/phpunit
 vendor/bin/phpunit --testdox
 ``
 
-#Behat
+# Behat
 - Ejecutar test Behat en linea de comandos:
 ``
 vendor/bin/behat
