@@ -16,17 +16,17 @@ curl --location --request GET 'http://localhost:8000/colorword'
 
 ## Endpoints 
 ### Color
-- Devuelve un color random
+- Devuelve un color aleatorio
 ``
 http://localhost:8000/color
 ``
 ### Cool Word
-- Devuelve una palabra molona random
+- Devuelve una palabra molona aleatoria
 ``
 http://localhost:8000/coolword
 ``
 ### Cool Word with style
-- Devuelve un json con un color de fondo random, un color de fuente random y una palabra molona también random
+- Devuelve un json con un color de fondo aleatorio, un color de fuente aleatoria y una palabra molona también aleatoria
 ``
 http://localhost:8000/colorword
 ``
