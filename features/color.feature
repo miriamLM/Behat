@@ -5,5 +5,5 @@ Feature:
     Then the response color code should be "200"
     And the color response should be:
     """
-    <string>
+    green
     """
