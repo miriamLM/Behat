@@ -50,15 +50,11 @@ class FeatureContext implements Context
         ];
     }
 
-    /*
-     * COOLWORD WITH STYLE JSON
-     */
-
 
     /**
-     * @Given /^I do a "([^"]*)" request to "([^"]*)" in json$/
+     * @Given /^I do a "([^"]*)" request to "([^"]*)"$/
      */
-    public function iDoARequestToInJson($method, $uri)
+    public function iDoARequestTo($method, $uri)
     {
         $client = new Client(['base_uri' => 'http://localhost:8000/']);
 
@@ -75,6 +71,7 @@ class FeatureContext implements Context
         }
     }
 
+
     /**
      * @Then /^the response code should be "([^"]*)"$/
      * @throws Exception
@@ -85,6 +82,12 @@ class FeatureContext implements Context
             throw new Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
         }
     }
+
+
+    /*
+     * COOLWORD WITH STYLE JSON
+     */
+
 
     /**
      * @Given /^the response should be:$/
@@ -116,36 +119,6 @@ class FeatureContext implements Context
 
 
     /**
-     * @Given /^I do a "([^"]*)" request to "([^"]*)" in string$/
-     */
-    public function iDoARequestToInString($method, $uri)
-    {
-        $client = new Client(['base_uri' => 'http://localhost:8000/']);
-
-        try {
-            $request = $client->request($method, $uri);
-
-            $this->lastResponse = $request->getBody()->getContents();
-            $this->lastStatusCode = $request->getStatusCode();
-
-        } catch (ClientException $exception) {
-
-            $this->lastResponse = $exception->getResponse()->getBody();
-            $this->lastStatusCode = $exception->getResponse()->getStatusCode();
-        }
-    }
-
-    /**
-     * @Then /^the response color code should be "([^"]*)"$/
-     */
-    public function theResponseColorCodeShouldBe($expectedStatusCode)
-    {
-        if ($expectedStatusCode != $this->lastStatusCode) {
-            throw new Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
-        }
-    }
-
-    /**
      * @Given /^the color response should be:$/
      */
     public function theColorResponseShouldBe(PyStringNode $response)
@@ -170,36 +143,6 @@ class FeatureContext implements Context
 
 
     /**
-     * @Given /^I do a "([^"]*)" request to coolword "([^"]*)" in string$/
-     */
-    public function iDoARequestToCoolwordInString($method, $uri)
-    {
-        $client = new Client(['base_uri' => 'http://localhost:8000/']);
-
-        try {
-            $request = $client->request($method, $uri);
-
-            $this->lastResponse = $request->getBody()->getContents();
-            $this->lastStatusCode = $request->getStatusCode();
-
-        } catch (ClientException $exception) {
-
-            $this->lastResponse = $exception->getResponse()->getBody();
-            $this->lastStatusCode = $exception->getResponse()->getStatusCode();
-        }
-    }
-
-    /**
-     * @Then /^the status coolword response should be "([^"]*)"$/
-     */
-    public function theStatusCoolwordResponseShouldBe($expectedStatusCode)
-    {
-        if ($expectedStatusCode != $this->lastStatusCode) {
-            throw new Exception(sprintf("Expected %s vs Actual %s", $expectedStatusCode, $this->lastStatusCode));
-        }
-    }
-
-    /**
      * @Given /^the coolword response should be:$/
      */
     public function theCoolwordResponseShouldBe(PyStringNode $response)
@@ -214,6 +157,8 @@ class FeatureContext implements Context
             throw new Exception('Error value expected');
         }
     }
+
+
 
 
 }
