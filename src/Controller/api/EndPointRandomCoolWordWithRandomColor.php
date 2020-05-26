@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace LaSalle\ChupiProject\Controller\api;
 
-use Colors\Color;
 use LaSalle\ChupiProject\Module\Color\Domain\RandomColorSearcher;
 use LaSalle\ChupiProject\Module\Color\Infrastructure\DifferentRandomColorExpectGenerator;
 use LaSalle\ChupiProject\Module\Color\Infrastructure\InMemoryColorRepository;
@@ -28,10 +27,8 @@ final class EndPointRandomCoolWordWithRandomColor
         $differentColorGenerator= new DifferentRandomColorExpectGenerator();
         $fontColor = $differentColorGenerator->random_color_except($backgroundColor, $colorSearcher);
 
-        $color = new Color();
-        $coolwordwithstyle=$color($coolword)->bg($backgroundColor)->$fontColor . PHP_EOL;
-
         $coolwordWithStyleArray = array("background color"=>$backgroundColor, "font color"=>$fontColor, "cool word"=>$coolword);
+
         $coolwordWithStyleJSON = json_encode($coolwordWithStyleArray);
 
         return Response::create($coolwordWithStyleJSON, 200);
