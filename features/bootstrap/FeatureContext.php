@@ -31,6 +31,11 @@ class FeatureContext implements Context
     {
     }
 
+    /*
+     * COOLWORD WITH STYLE JSON
+     */
+
+
     /**
      * @Given /^I do a "([^"]*)" request to "([^"]*)" in json$/
      */
@@ -72,6 +77,12 @@ class FeatureContext implements Context
         }
     }
 
+
+    /*
+     * COLOR
+     */
+
+
     /**
      * @Given /^I do a "([^"]*)" request to "([^"]*)" in string$/
      */
@@ -105,12 +116,18 @@ class FeatureContext implements Context
      */
     public function theColorResponseShouldBe(PyStringNode $response)
     {
-        $expectedResponseBody = json_decode($response->getRaw());
-        $lastResponseBody = json_decode($this->lastResponse);
-        if ($expectedResponseBody != $lastResponseBody) {
-            throw new \Exception('Wrong response body');
+
+        if ('string' !== gettype($response->getRaw())) {
+            throw new Exception('String expected');
         }
+
     }
+
+
+    /*
+     * COOLWORD
+     */
+
 
     /**
      * @Given /^I do a "([^"]*)" request to coolword "([^"]*)" in string$/
